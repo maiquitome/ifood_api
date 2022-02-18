@@ -1,4 +1,7 @@
 defmodule IfoodWeb.Telemetry do
+  @moduledoc """
+  IfoodWeb.Telemetry
+  """
   use Supervisor
   import Telemetry.Metrics
 
