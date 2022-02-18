@@ -1,5 +1,7 @@
 # Ifood
 
+![Coverage Status](https://img.shields.io/badge/coverage-100%25-green)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
