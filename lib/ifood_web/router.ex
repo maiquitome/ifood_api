@@ -1,13 +1,18 @@
 defmodule IfoodWeb.Router do
   use IfoodWeb, :router
 
+  # coveralls-ignore-start
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  # coveralls-ignore-stop
+
   scope "/api", IfoodWeb do
     pipe_through :api
   end
+
+  # coveralls-ignore-start
 
   # Enables LiveDashboard only for development
   #
@@ -25,6 +30,8 @@ defmodule IfoodWeb.Router do
       live_dashboard "/dashboard", metrics: IfoodWeb.Telemetry
     end
   end
+
+  # coveralls-ignore-stop
 
   # Enables the Swoosh mailbox preview in development.
   #
