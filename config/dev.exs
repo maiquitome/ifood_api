@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :ifood, Ifood.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DATABASE_USERNAME"),
+  password: System.get_env("DATABASE_PASSWORD"),
   hostname: "localhost",
   database: "ifood_dev",
   show_sensitive_data_on_connection_error: true,
