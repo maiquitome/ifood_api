@@ -51,11 +51,18 @@ defmodule Ifood.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.14.4", only: :test},
+      {:argon2_elixir, "~> 3.0"},
+
+      # only DEV
       {:sobelow, "~> 0.11.1", only: :dev},
+
+      # only DEV and TEST
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
-      {:argon2_elixir, "~> 3.0"}
+
+      # only TEST
+      {:excoveralls, "~> 0.14.4", only: :test},
+      {:ex_machina, "~> 2.7", only: :test}
     ]
   end
 
