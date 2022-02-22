@@ -8,7 +8,7 @@ defmodule Ifood.Accounts.UserTest do
 
   describe "changeset/1" do
     test "when all params are valid, returns a valid changeset" do
-      params = build(:user_params)
+      params = build(:user_params, %{"birthdate" => ~D[1993-05-13]})
 
       response = User.changeset(params)
 
@@ -67,7 +67,8 @@ defmodule Ifood.Accounts.UserTest do
     end
 
     test "when the password_confirmation is different from the password, returns an invalid changeset" do
-      params = build(:user_params, %{"password_confirmation" => "111111"})
+      params =
+        build(:user_params, %{"birthdate" => ~D[1993-05-13], "password_confirmation" => "111111"})
 
       expected_response = %{password_confirmation: ["does not match confirmation"]}
 
@@ -77,7 +78,12 @@ defmodule Ifood.Accounts.UserTest do
     end
 
     test "when the password is less than six characters, returns an invalid changeset" do
-      params = build(:user_params, %{"password" => "12345", "password_confirmation" => "12345"})
+      params =
+        build(:user_params, %{
+          "birthdate" => ~D[1993-05-13],
+          "password" => "12345",
+          "password_confirmation" => "12345"
+        })
 
       expected_response = %{password: ["should be at least 6 character(s)"]}
 
@@ -87,7 +93,7 @@ defmodule Ifood.Accounts.UserTest do
     end
 
     test "when the cpf is less than eleven characters, returns an invalid changeset" do
-      params = build(:user_params, %{"cpf" => "1234567890"})
+      params = build(:user_params, %{"birthdate" => ~D[1993-05-13], "cpf" => "1234567890"})
 
       expected_response = %{cpf: ["should be 11 character(s)"]}
 
@@ -115,7 +121,7 @@ defmodule Ifood.Accounts.UserTest do
     end
 
     test "when the format of the email field is invalid, returns an invalid changeset" do
-      params = build(:user_params, %{"email" => "maiqui"})
+      params = build(:user_params, %{"birthdate" => ~D[1993-05-13], "email" => "maiqui"})
 
       expected_response = %{email: ["has invalid format"]}
 
