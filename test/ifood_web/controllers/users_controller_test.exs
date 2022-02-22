@@ -5,7 +5,7 @@ defmodule IfoodWeb.UserControllerTest do
 
   describe "create/2" do
     test "success", %{conn: conn} do
-      params = build(:user_params, %{"birthdate" => "13/05/1993"})
+      params = build(:user_params)
 
       response =
         conn

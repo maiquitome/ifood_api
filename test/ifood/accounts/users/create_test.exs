@@ -9,7 +9,7 @@ defmodule Ifood.Accounts.Users.CreateTest do
 
   describe "call/1" do
     test "success" do
-      params = build(:user_params, %{"birthdate" => "13/05/1993"})
+      params = build(:user_params)
 
       assert {:ok,
               %User{
@@ -47,7 +47,7 @@ defmodule Ifood.Accounts.Users.CreateTest do
       params =
         build(
           :user_params,
-          %{"birthdate" => "13/05/1993", "email" => "maiqui", "cpf" => "1234567890"}
+          %{"email" => "maiqui", "cpf" => "1234567890"}
         )
 
       expected_response = %{email: ["has invalid format"], cpf: ["should be 11 character(s)"]}

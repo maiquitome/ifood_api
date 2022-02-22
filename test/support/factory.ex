@@ -8,7 +8,7 @@ defmodule Ifood.Factory do
 
   def user_params_factory do
     %{
-      "birthdate" => ~D[1993-05-13],
+      "birthdate" => "13/05/1993",
       "cpf" => "12345678911",
       "email" => "maiqui@email.com",
       "first_name" => "Maiqui",
