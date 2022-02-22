@@ -17,6 +17,17 @@ defmodule Ifood.Accounts.User do
 
   @fields_that_can_be_changed [:phone_number] ++ @required_fields
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :birthdate,
+             :cpf,
+             :first_name,
+             :last_name,
+             :email,
+             :phone_number
+           ]}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
@@ -37,12 +48,12 @@ defmodule Ifood.Accounts.User do
     user
     |> cast(attrs, @fields_that_can_be_changed)
     |> validate_required(@required_fields)
-    |> validate_confirmation(:password)
     |> validate_length(:cpf, is: 11)
-    |> validate_length(:password, min: 6, max: 100)
     |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email)
+    |> validate_confirmation(:password)
+    |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:cpf)
+    |> unique_constraint(:email)
     |> put_pass_hash()
   end
 

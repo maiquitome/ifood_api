@@ -10,6 +10,8 @@ defmodule IfoodWeb.Router do
 
   scope "/api", IfoodWeb do
     pipe_through :api
+
+    resources "/users", UsersController, except: [:edit, :new]
   end
 
   # coveralls-ignore-start
