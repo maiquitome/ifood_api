@@ -1,4 +1,7 @@
 defmodule IfoodWeb.Plugs.UUIDChecker do
+  @moduledoc """
+  Checks if UUID is valid.
+  """
   import Plug.Conn
 
   alias Ecto.UUID

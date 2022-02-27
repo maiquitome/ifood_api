@@ -31,7 +31,7 @@ defmodule Ifood.Accounts.Users.GetById do
   """
   @spec call(id :: binary()) ::
           {:ok, Schema.t()}
-          | {:error, %Error{result: String.t(), status: :not_found}}
+          | {:error, %{result: String.t(), status: :not_found}}
   def call(id) when is_binary(id) do
     case Repo.get(User, id) do
       nil -> {:error, Errors.build_user_not_found_error()}
