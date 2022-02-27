@@ -43,4 +43,30 @@ defmodule Ifood.AccountsTest do
       assert response == expected_response
     end
   end
+
+  describe "delete_user/1" do
+    test "success" do
+      params = build(:user_params)
+
+      {:ok, %User{id: created_user_id}} = Accounts.create_user(params)
+
+      # user succesfully deleted
+      assert {:ok, %User{id: deleted_user_id}} = Accounts.delete_user(created_user_id)
+
+      # deleted user not found
+      expected_response = {:error, %Error{result: "User not found", status: :not_found}}
+      response = Accounts.get_user_by_id(deleted_user_id)
+      assert response == expected_response
+    end
+
+    test "user not found" do
+      %User{id: id} = build(:user)
+
+      response = Accounts.delete_user(id)
+
+      expected_response = {:error, %Error{result: "User not found", status: :not_found}}
+
+      assert response == expected_response
+    end
+  end
 end
