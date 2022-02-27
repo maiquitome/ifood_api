@@ -117,4 +117,32 @@ defmodule IfoodWeb.UserControllerTest do
       assert response == expected_response
     end
   end
+
+  describe "delete/1" do
+    test "success", %{conn: conn} do
+      %User{id: id} = insert(:user)
+
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> response(:no_content)
+
+      expected_response = ""
+
+      assert response == expected_response
+    end
+
+    test "user not found", %{conn: conn} do
+      %User{id: id} = build(:user)
+
+      response =
+        conn
+        |> delete(Routes.users_path(conn, :delete, id))
+        |> json_response(:not_found)
+
+      expected_response = %{"error" => "User not found"}
+
+      assert response == expected_response
+    end
+  end
 end

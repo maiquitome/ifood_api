@@ -1,17 +1,15 @@
-defmodule Ifood.Accounts.Users.GetById do
+defmodule Ifood.Accounts.Users.Delete do
   @moduledoc """
-  Get a user by ID.
+  Deletes a user from the database.
   """
-
   alias Core.Errors
   alias Ecto.Schema
   alias Ifood.{Accounts.User, Repo}
 
   @doc """
-  ## Examples
 
       iex> alias Ifood.Accounts
-      ...> alias Ifood.Accounts.{User, Users}
+      ...> alias Ifood.Accounts.{User, Users.Delete}
       ...>
       ...> params = %{
       ...>    "birthdate"             => "13/05/1993",
@@ -24,9 +22,9 @@ defmodule Ifood.Accounts.Users.GetById do
       ...>    "phone_number"          => "54999269936"
       ...> }
       ...>
-      ...> {:ok, %User{id: user_id}} = Accounts.create_user(params)
+      ...> {:ok, %User{id: id}} = Accounts.create_user(params)
       ...>
-      ...> {:ok, %User{}} = Users.GetById.call(user_id)
+      ...> {:ok, %User{}} = Delete.call(id)
 
   """
   @spec call(id :: binary()) ::
@@ -35,7 +33,7 @@ defmodule Ifood.Accounts.Users.GetById do
   def call(id) when is_binary(id) do
     case Repo.get(User, id) do
       nil -> {:error, Errors.build_user_not_found_error()}
-      user -> {:ok, user}
+      user -> Repo.delete(user)
     end
   end
 end
