@@ -1,9 +1,12 @@
 defmodule IfoodWeb.Router do
   use IfoodWeb, :router
 
+  alias IfoodWeb.Plugs.UUIDChecker
+
   # coveralls-ignore-start
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
   end
 
   # coveralls-ignore-stop

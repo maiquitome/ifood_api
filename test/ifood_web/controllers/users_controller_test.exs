@@ -3,6 +3,9 @@ defmodule IfoodWeb.UserControllerTest do
 
   import Ifood.Factory
 
+  alias Ifood.Accounts
+  alias Ifood.Accounts.User
+
   describe "create/2" do
     test "success", %{conn: conn} do
       params = build(:user_params)
@@ -59,6 +62,57 @@ defmodule IfoodWeb.UserControllerTest do
           "password_confirmation" => ["can't be blank"]
         }
       }
+
+      assert response == expected_response
+    end
+  end
+
+  describe "show/2" do
+    test "success", %{conn: conn} do
+      params = build(:user_params)
+
+      {:ok, %User{id: id}} = Accounts.create_user(params)
+
+      response =
+        conn
+        |> get(Routes.users_path(conn, :show, id))
+        |> json_response(:ok)
+
+      assert %{
+               "user" => %{
+                 "birthdate" => "13/05/1993",
+                 "cpf" => "12345678911",
+                 "email" => "maiqui@email.com",
+                 "first_name" => "Maiqui",
+                 "id" => _id,
+                 "last_name" => "Tomé",
+                 "phone_number" => "5496159531"
+               }
+             } = response
+    end
+
+    test "user not found", %{conn: conn} do
+      id = "2fa33c83-9120-41fc-84f8-b402cfce8cfe"
+
+      response =
+        conn
+        |> get(Routes.users_path(conn, :show, id))
+        |> json_response(:not_found)
+
+      expected_response = %{"error" => "User not found"}
+
+      assert response == expected_response
+    end
+
+    test "invalid uuid", %{conn: conn} do
+      invalid_id = "2fa33c83-9120-41fc-84f8-"
+
+      response =
+        conn
+        |> get(Routes.users_path(conn, :show, invalid_id))
+        |> json_response(:bad_request)
+
+      expected_response = %{"error" => "Invalid UUID."}
 
       assert response == expected_response
     end
