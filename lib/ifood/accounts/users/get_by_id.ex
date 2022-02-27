@@ -3,7 +3,7 @@ defmodule Ifood.Accounts.Users.GetById do
   Get a user by ID.
   """
 
-  alias Core.{Error, Errors}
+  alias Core.Errors
   alias Ecto.Schema
   alias Ifood.{Accounts.User, Repo}
 
