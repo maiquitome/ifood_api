@@ -10,4 +10,6 @@ defmodule Ifood.Accounts do
   defdelegate create_user(attrs), to: UserCreate, as: :call
   defdelegate delete_user(id), to: UserDelete, as: :call
   defdelegate get_user_by_id(id), to: UserGetById, as: :call
+
+  # test
 end
